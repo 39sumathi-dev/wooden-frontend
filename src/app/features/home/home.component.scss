@@ -1,0 +1,750 @@
+/* ========================================================
+   SK WOOD TURNERY — LANDING PAGE STYLES
+   Warm, tactile, artisan woodworking visual identity
+   ======================================================== */
+
+// ── HERO SECTION ─────────────────────────────────────────
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  background-color: #120E0B;
+}
+
+.hero-bg-wrapper {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.hero-bg-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center right;
+  display: block;
+}
+
+.hero-gradient-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to right,
+    rgba(14, 11, 8, 0.94) 0%,
+    rgba(14, 11, 8, 0.82) 32%,
+    rgba(14, 11, 8, 0.45) 60%,
+    rgba(14, 11, 8, 0.15) 100%
+  ),
+  linear-gradient(
+    to top,
+    rgba(14, 11, 8, 0.6) 0%,
+    transparent 20%
+  );
+}
+
+.hero-container {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  padding-top: 6.5rem;
+  padding-bottom: 4rem;
+}
+
+.hero-text-block {
+  max-width: 580px;
+}
+
+.hero-title {
+  font-family: var(--font-serif);
+  font-size: clamp(3.2rem, 5.8vw, 5.2rem);
+  font-weight: 400;
+  line-height: 1.06;
+  letter-spacing: -0.015em;
+  color: var(--ivory);
+  margin-bottom: 1.5rem;
+}
+
+.hero-subtitle {
+  font-family: var(--font-sans);
+  font-size: clamp(0.95rem, 1.25vw, 1.1rem);
+  font-weight: 350;
+  line-height: 1.6;
+  color: rgba(246, 242, 235, 0.85);
+  margin-bottom: 2.25rem;
+  max-width: 440px;
+}
+
+.hero-actions {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.hero-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  background-color: var(--terracotta);
+  color: #FFFFFF;
+  padding: 0.85rem 1.65rem;
+  border-radius: 3px;
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all var(--t-fast);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+
+  .cta-arrow {
+    transition: transform var(--t-fast);
+  }
+
+  &:hover {
+    background-color: var(--terracotta-hover);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.45);
+
+    .cta-arrow {
+      transform: translateX(4px);
+    }
+  }
+}
+
+.hero-carousel-nav {
+  display: flex;
+  align-items: flex-end;
+  gap: 1.5rem;
+  margin-top: 4.5rem;
+}
+
+.slide-nav-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.4rem;
+  padding: 0;
+  color: rgba(246, 242, 235, 0.45);
+  font-family: var(--font-sans);
+  font-size: 0.82rem;
+  font-weight: 500;
+  transition: color var(--t-fast);
+
+  .slide-active-bar {
+    width: 28px;
+    height: 1.5px;
+    background: transparent;
+    transition: background var(--t-fast);
+  }
+
+  &.is-active {
+    color: var(--ivory);
+    font-weight: 600;
+
+    .slide-active-bar {
+      background: var(--ivory);
+    }
+  }
+
+  &:hover {
+    color: var(--ivory);
+  }
+}
+
+
+// ── SECTION 2: OUR CRAFT (ARTISAN STORY MOSAIC) ───────────
+.craft-mosaic {
+  background-color: #ECE5DD;
+  color: #201A17;
+  padding: 5.5rem 0;
+}
+
+.craft-container {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr 0.95fr 0.85fr;
+  gap: 1.5rem;
+  align-items: stretch;
+
+  @media (max-width: 1024px) {
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+
+  @media (max-width: 640px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.craft-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.craft-story {
+  justify-content: center;
+  padding-right: 1rem;
+
+  .craft-label {
+    font-family: var(--font-sans);
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #8A6E55;
+    margin-bottom: 1.25rem;
+    display: block;
+  }
+
+  .craft-headline {
+    font-family: var(--font-serif);
+    font-size: clamp(2.2rem, 3.2vw, 3.4rem);
+    font-weight: 400;
+    line-height: 1.12;
+    color: #201A17;
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.01em;
+  }
+
+  .craft-body {
+    font-family: var(--font-sans);
+    font-size: 0.92rem;
+    font-weight: 350;
+    line-height: 1.7;
+    color: rgba(32, 26, 23, 0.72);
+    margin-bottom: 2.25rem;
+    max-width: 320px;
+  }
+
+  .craft-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-family: var(--font-sans);
+    font-size: 0.88rem;
+    font-weight: 500;
+    color: #201A17;
+    text-decoration: none;
+    border-bottom: 1px solid currentColor;
+    padding-bottom: 2px;
+    width: fit-content;
+    transition: all var(--t-fast);
+
+    .link-dash {
+      color: rgba(32, 26, 23, 0.4);
+    }
+
+    .link-arrow {
+      transition: transform var(--t-fast);
+    }
+
+    &:hover {
+      color: var(--terracotta);
+      border-color: var(--terracotta);
+
+      .link-arrow {
+        transform: translateX(4px);
+      }
+    }
+  }
+}
+
+.craft-image-frame {
+  position: relative;
+  border-radius: 4px;
+  overflow: hidden;
+  background-color: #DFD7CC;
+}
+
+.tree-ring-frame {
+  height: 100%;
+  min-height: 380px;
+
+  .craft-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+}
+
+.craft-action-col {
+  gap: 1.25rem;
+
+  .craft-image-frame {
+    flex: 1;
+    min-height: 180px;
+
+    .craft-photo {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+  }
+}
+
+.craft-sketch-col {
+  .sketch-panel {
+    background-color: #E2D9CE;
+    border-radius: 4px;
+    height: 100%;
+    padding: 2.25rem 1.25rem 1.75rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: inset 0 0 0 1px rgba(138, 110, 85, 0.15);
+  }
+
+  .calligraphy-script {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    font-family: var(--font-script);
+    font-size: 2.2rem;
+    line-height: 1.15;
+    color: #583F2D;
+
+    .script-line {
+      display: block;
+    }
+  }
+
+  .sketch-divider-rule {
+    width: 32px;
+    height: 1px;
+    background-color: #9F8A77;
+    margin: 1.25rem 0 1rem;
+  }
+
+  .vase-sketch-container {
+    width: 100%;
+    max-width: 145px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+
+    .vase-blueprint-svg {
+      width: 100%;
+      height: auto;
+      max-height: 220px;
+    }
+  }
+}
+
+
+// ── SECTION 3: FEATURED COLLECTION ────────────────────────
+.featured-section {
+  background-color: #FAF8F5;
+  color: #201A17;
+  padding: 5.5rem 0;
+}
+
+.section-heading-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 2.5rem;
+
+  .featured-title {
+    font-family: var(--font-serif);
+    font-size: clamp(1.8rem, 2.6vw, 2.6rem);
+    font-weight: 400;
+    color: #201A17;
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+
+    .heading-dash {
+      font-weight: 300;
+      color: rgba(32, 26, 23, 0.35);
+      font-size: 1.4rem;
+    }
+  }
+
+  .header-view-all {
+    font-family: var(--font-sans);
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: #201A17;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    transition: color var(--t-fast);
+
+    .arrow-glyph {
+      transition: transform var(--t-fast);
+    }
+
+    &:hover {
+      color: var(--terracotta);
+
+      .arrow-glyph {
+        transform: translateX(4px);
+      }
+    }
+  }
+}
+
+.product-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+
+  @media (max-width: 1024px) {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+
+  @media (max-width: 540px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.artisan-product-card {
+  display: flex;
+  flex-direction: column;
+
+  .card-image-box {
+    display: block;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    border-radius: 4px;
+    overflow: hidden;
+    background-color: #ECE6DE;
+    margin-bottom: 1rem;
+    position: relative;
+
+    .card-product-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.45s ease;
+    }
+
+    &:hover .card-product-img {
+      transform: scale(1.05);
+    }
+  }
+
+  .card-info-row {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 0.75rem;
+
+    .card-meta {
+      flex-grow: 1;
+
+      .card-product-title {
+        font-family: var(--font-sans);
+        font-size: 0.9rem;
+        font-weight: 450;
+        color: #201A17;
+        margin-bottom: 0.3rem;
+        line-height: 1.35;
+
+        a {
+          color: inherit;
+          text-decoration: none;
+          transition: color var(--t-fast);
+
+          &:hover {
+            color: var(--terracotta);
+          }
+        }
+      }
+
+      .card-product-price {
+        font-family: var(--font-sans);
+        font-size: 0.9rem;
+        font-weight: 500;
+        color: #554437;
+      }
+    }
+
+    .circle-cart-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: 1px solid rgba(32, 26, 23, 0.22);
+      background: transparent;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #201A17;
+      cursor: pointer;
+      flex-shrink: 0;
+      transition: all var(--t-fast);
+
+      &:hover {
+        background-color: #201A17;
+        color: #FAF8F5;
+        border-color: #201A17;
+        transform: scale(1.06);
+      }
+    }
+  }
+}
+
+
+// ── SECTION 4: SPLIT BANNER ───────────────────────────────
+.split-section {
+  width: 100%;
+  overflow: hidden;
+}
+
+.split-layout-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 520px;
+
+  @media (max-width: 1024px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+// Left Half: Materials
+.split-half-materials {
+  position: relative;
+  padding: 5.5rem 4rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: #120E0B;
+  color: var(--ivory);
+  overflow: hidden;
+
+  @media (max-width: 640px) {
+    padding: 4rem 1.5rem;
+  }
+
+  .materials-bg-image-wrapper {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+
+    .materials-bg-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .materials-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to right,
+        rgba(14, 11, 8, 0.94) 0%,
+        rgba(14, 11, 8, 0.85) 60%,
+        rgba(14, 11, 8, 0.65) 100%
+      );
+    }
+  }
+
+  .materials-content {
+    position: relative;
+    z-index: 2;
+    max-width: 440px;
+
+    .materials-eyebrow {
+      font-family: var(--font-sans);
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--oak);
+      margin-bottom: 1.25rem;
+      display: block;
+    }
+
+    .materials-headline {
+      font-family: var(--font-serif);
+      font-size: clamp(2.2rem, 3.2vw, 3.2rem);
+      font-weight: 400;
+      line-height: 1.15;
+      color: var(--ivory);
+      margin-bottom: 1.25rem;
+    }
+
+    .materials-description {
+      font-family: var(--font-sans);
+      font-size: 0.92rem;
+      font-weight: 350;
+      line-height: 1.7;
+      color: rgba(246, 242, 235, 0.8);
+      margin-bottom: 2.25rem;
+    }
+
+    .materials-cta-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      background-color: var(--terracotta);
+      color: #FFFFFF;
+      padding: 0.75rem 1.5rem;
+      border-radius: 3px;
+      font-family: var(--font-sans);
+      font-size: 0.88rem;
+      font-weight: 500;
+      text-decoration: none;
+      transition: all var(--t-fast);
+      width: fit-content;
+
+      .btn-arrow {
+        transition: transform var(--t-fast);
+      }
+
+      &:hover {
+        background-color: var(--terracotta-hover);
+        transform: translateY(-1px);
+
+        .btn-arrow {
+          transform: translateX(4px);
+        }
+      }
+    }
+  }
+}
+
+// Right Half: Shop by Category
+.split-half-categories {
+  background-color: #ECE5DD;
+  color: #201A17;
+  padding: 5.5rem 4rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  @media (max-width: 640px) {
+    padding: 4rem 1.5rem;
+  }
+
+  .categories-content-inner {
+    width: 100%;
+  }
+
+  .category-heading-row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 2.25rem;
+
+    .category-headline {
+      font-family: var(--font-serif);
+      font-size: clamp(1.8rem, 2.4vw, 2.4rem);
+      font-weight: 400;
+      color: #201A17;
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+
+      .heading-dash {
+        font-weight: 300;
+        color: rgba(32, 26, 23, 0.35);
+        font-size: 1.4rem;
+      }
+    }
+
+    .header-view-all {
+      font-family: var(--font-sans);
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: #201A17;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      transition: color var(--t-fast);
+
+      .arrow-glyph {
+        transition: transform var(--t-fast);
+      }
+
+      &:hover {
+        color: var(--terracotta);
+
+        .arrow-glyph {
+          transform: translateX(4px);
+        }
+      }
+    }
+  }
+
+  .category-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+
+    @media (max-width: 640px) {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+    }
+  }
+
+  .category-artisan-card {
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+
+    .cat-image-wrapper {
+      width: 100%;
+      aspect-ratio: 1 / 1.15;
+      border-radius: 3px;
+      overflow: hidden;
+      background-color: #DFD7CC;
+      margin-bottom: 0.75rem;
+
+      .cat-card-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        transition: transform 0.4s ease;
+      }
+    }
+
+    .cat-card-caption {
+      .cat-card-title {
+        font-family: var(--font-sans);
+        font-size: 0.88rem;
+        font-weight: 500;
+        color: #201A17;
+        margin-bottom: 0.2rem;
+      }
+
+      .cat-card-action {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-family: var(--font-sans);
+        font-size: 0.75rem;
+        color: rgba(32, 26, 23, 0.6);
+
+        .cat-card-arrow {
+          transition: transform 0.2s ease;
+        }
+      }
+    }
+
+    &:hover {
+      .cat-card-img {
+        transform: scale(1.05);
+      }
+
+      .cat-card-arrow {
+        transform: translateX(3px);
+        color: var(--terracotta);
+      }
+    }
+  }
+}

@@ -1,0 +1,82 @@
+<footer class="footer">
+  <div class="footer-top">
+    <div class="container footer-top-inner">
+
+      <!-- Brand column -->
+      <div class="footer-brand">
+        <a routerLink="/" class="footer-logo-link" aria-label="SK Wood Turnery">
+          <img src="assets/logo/logo.jpg" alt="SK Wood Turnery" class="footer-logo" width="110" height="92">
+        </a>
+        <div class="footer-brand-text">
+          <p class="footer-brand-name type-h4">SK Wood Turnery</p>
+          <p class="type-label text-muted" style="margin-top: 0.25rem;">Handcrafted · Timeless · Quality</p>
+        </div>
+        <p class="footer-bio type-small text-muted" style="margin-top: 1.5rem;">
+          Every piece begins on the lathe — shaped from a single billet of timber, by a single pair of hands. Each object carries the marks of its making.
+        </p>
+      </div>
+
+      <!-- Shop column -->
+      <div class="footer-col">
+        <h4 class="footer-col-title type-label">Collections</h4>
+        <ul class="footer-links" role="list">
+          <li><a routerLink="/shop" class="footer-link">Shop All Products</a></li>
+          <li><a routerLink="/shop" [queryParams]="{ category: 'functional-homeware' }" class="footer-link">Functional Homeware</a></li>
+          <li><a routerLink="/shop" [queryParams]="{ category: 'fine-writing-gifts' }" class="footer-link">Fine Writing & Gifts</a></li>
+          <li><a routerLink="/shop" [queryParams]="{ category: 'art-accent-pieces' }" class="footer-link">Art & Accent Pieces</a></li>
+          <li><a routerLink="/shop" [queryParams]="{ featured: 'true' }" class="footer-link">Featured Masterpieces</a></li>
+        </ul>
+      </div>
+
+      <!-- About column -->
+      <div class="footer-col">
+        <h4 class="footer-col-title type-label">About</h4>
+        <ul class="footer-links" role="list">
+          <li><a routerLink="/about" class="footer-link">Our Story</a></li>
+          <li><a routerLink="/about" class="footer-link">The Workshop</a></li>
+          <li><a routerLink="/about" class="footer-link">Wood Species</a></li>
+          <li><a routerLink="/contact" class="footer-link">Contact</a></li>
+          <li><a routerLink="/about" class="footer-link">Custom Orders</a></li>
+        </ul>
+      </div>
+
+      <!-- Newsletter column -->
+      <div class="footer-col footer-newsletter">
+        <h4 class="footer-col-title type-label">Maker's Notes</h4>
+        <p class="type-small text-muted" style="margin-top: 0.75rem; line-height: 1.65;">
+          Occasional dispatches from the workshop — new pieces, wood species, and the objects we're making.
+        </p>
+        <form class="newsletter-form" (submit)="$event.preventDefault()" aria-label="Newsletter signup">
+          <label for="footer-email" class="visually-hidden">Your email address</label>
+          <div class="newsletter-input-row">
+            <input type="email"
+                   id="footer-email"
+                   name="email"
+                   placeholder="your@email.com"
+                   class="newsletter-input"
+                   autocomplete="email">
+            <button type="submit" class="newsletter-btn" aria-label="Subscribe">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+              </svg>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer bottom -->
+  <div class="footer-bottom">
+    <div class="container footer-bottom-inner">
+      <p class="type-small text-muted">
+        &copy; {{ year }} SK Wood Turnery. All rights reserved.
+      </p>
+      <div class="footer-bottom-links" style="display: flex; gap: 0.75rem; align-items: center;">
+        <span class="type-small text-muted">Each object is handmade and unique.</span>
+        <span style="opacity: 0.3;">·</span>
+        <a routerLink="/admin" class="type-small text-muted" style="text-decoration: underline; text-underline-offset: 3px;" title="Workshop Administration">Admin Console</a>
+      </div>
+    </div>
+  </div>
+</footer>

@@ -1,0 +1,318 @@
+<!-- ========================================================
+     SK WOOD TURNERY — ARTISAN DIGITAL FLAGSHIP
+     Warm, authentic, natural craft aesthetic
+     ======================================================== -->
+
+<!-- ── HERO SECTION ────────────────────────────────────────── -->
+<section class="hero" id="home" aria-label="Welcome to SK Wood Turnery">
+  <!-- Cinematic workshop background -->
+  <div class="hero-bg-wrapper">
+    <img src="assets/images/hero-artisan.jpg"
+         alt="Handcrafted live-edge turned wooden bowl on rustic craftsman workbench"
+         class="hero-bg-image"
+         loading="eager"
+         fetchpriority="high">
+    <div class="hero-gradient-overlay" aria-hidden="true"></div>
+  </div>
+
+  <div class="container hero-container">
+    <div class="hero-text-block">
+      <h1 class="hero-title">
+        Wood,<br>
+        shaped with<br>
+        intention.
+      </h1>
+
+      <p class="hero-subtitle">
+        Every piece is turned, finished and perfected by hand.
+      </p>
+
+      <div class="hero-actions">
+        <a routerLink="/shop" class="hero-cta-btn" id="hero-explore-btn">
+          <span>Explore Collection</span>
+          <span class="cta-arrow" aria-hidden="true">→</span>
+        </a>
+      </div>
+
+      <!-- Slide pagination numbers -->
+      <div class="hero-carousel-nav" role="tablist" aria-label="Featured slides">
+        <button class="slide-nav-btn"
+                [class.is-active]="activeSlide() === 1"
+                (click)="setSlide(1)"
+                role="tab"
+                [attr.aria-selected]="activeSlide() === 1">
+          <span class="slide-active-bar" aria-hidden="true"></span>
+          <span class="slide-digit">01</span>
+        </button>
+        <button class="slide-nav-btn"
+                [class.is-active]="activeSlide() === 2"
+                (click)="setSlide(2)"
+                role="tab"
+                [attr.aria-selected]="activeSlide() === 2">
+          <span class="slide-active-bar" aria-hidden="true"></span>
+          <span class="slide-digit">02</span>
+        </button>
+        <button class="slide-nav-btn"
+                [class.is-active]="activeSlide() === 3"
+                (click)="setSlide(3)"
+                role="tab"
+                [attr.aria-selected]="activeSlide() === 3">
+          <span class="slide-active-bar" aria-hidden="true"></span>
+          <span class="slide-digit">03</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ── SECTION 2: OUR CRAFT (ARTISAN STORY MOSAIC) ──────────── -->
+<section class="craft-mosaic" id="craft-section" aria-label="Our Craftsmanship">
+  <div class="container craft-container">
+
+    <!-- Column 1: Story Text -->
+    <div class="craft-col craft-story">
+      <span class="craft-label">OUR CRAFT</span>
+
+      <h2 class="craft-headline">
+        Tradition<br>
+        in every turn.
+      </h2>
+
+      <p class="craft-body">
+        At SK Wood Turnery, we bring raw timber to life through careful design, skilled hands and a deep respect for the material.
+      </p>
+
+      <a routerLink="/about" class="craft-link" id="craft-process-link">
+        <span class="link-dash" aria-hidden="true">──</span>
+        <span>Our Process</span>
+        <span class="link-arrow" aria-hidden="true">→</span>
+      </a>
+    </div>
+
+    <!-- Column 2: Tree Ring Macro Photo -->
+    <div class="craft-col craft-macro-col">
+      <div class="craft-image-frame tree-ring-frame">
+        <img src="assets/images/tree-rings.jpg"
+             alt="Hardwood growth rings and natural bark texture cross section"
+             class="craft-photo"
+             loading="lazy">
+      </div>
+    </div>
+
+    <!-- Column 3: Workshop Action B&W Photos -->
+    <div class="craft-col craft-action-col">
+      <div class="craft-image-frame action-frame-top">
+        <img src="assets/images/lathe-action.jpg"
+             alt="Master woodturner carving spinning wood bowl on heavy cast-iron lathe with flying shavings"
+             class="craft-photo"
+             loading="lazy">
+      </div>
+      <div class="craft-image-frame action-frame-bottom">
+        <img src="assets/images/hands-crafting.jpg"
+             alt="Artisan hands gently holding and inspecting grain of handcrafted turned wooden piece"
+             class="craft-photo"
+             loading="lazy">
+      </div>
+    </div>
+
+    <!-- Column 4: Calligraphy Script & Vase Draftsman Blueprint Sketch -->
+    <div class="craft-col craft-sketch-col">
+      <div class="sketch-panel">
+        <div class="calligraphy-script" aria-label="Handcrafted Timeless Quality">
+          <span class="script-line">Handcrafted</span>
+          <span class="script-line">Timeless</span>
+          <span class="script-line">Quality</span>
+        </div>
+
+        <div class="sketch-divider-rule" aria-hidden="true"></div>
+
+        <!-- Architectural draftsman blueprint sketch of turned wooden vase -->
+        <div class="vase-sketch-container" aria-hidden="true">
+          <svg class="vase-blueprint-svg" viewBox="0 0 160 260" fill="none" stroke="currentColor">
+            <!-- Central vertical symmetry dashed axis -->
+            <line x1="80" y1="10" x2="80" y2="250" stroke="#8A7767" stroke-width="0.8" stroke-dasharray="4 3"/>
+
+            <!-- Vase silhouette curves (sculpted vase) -->
+            <path d="M 62 30
+                     C 65 30, 68 35, 68 45
+                     C 68 65, 52 100, 42 145
+                     C 32 190, 40 220, 50 232
+                     L 110 232
+                     C 120 220, 128 190, 118 145
+                     C 108 100, 92 65, 92 45
+                     C 92 35, 95 30, 98 30
+                     Z"
+                  stroke="#5F4B3C" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+
+            <!-- Lip rim opening ellipse -->
+            <ellipse cx="80" cy="30" rx="18" ry="4" stroke="#5F4B3C" stroke-width="1.1"/>
+
+            <!-- Base rim ellipse -->
+            <ellipse cx="80" cy="232" rx="30" ry="6" stroke="#5F4B3C" stroke-width="1.1"/>
+
+            <!-- Contour cross-section shading lines -->
+            <path d="M 52 110 C 65 116, 95 116, 108 110" stroke="#8A7767" stroke-width="0.75" stroke-dasharray="2 2"/>
+            <path d="M 43 150 C 60 158, 100 158, 117 150" stroke="#8A7767" stroke-width="0.75" stroke-dasharray="2 2"/>
+            <path d="M 44 190 C 60 198, 100 198, 116 190" stroke="#8A7767" stroke-width="0.75" stroke-dasharray="2 2"/>
+
+            <!-- Dimension callout lines on the right side -->
+            <line x1="130" y1="30" x2="148" y2="30" stroke="#9A8877" stroke-width="0.75"/>
+            <line x1="130" y1="232" x2="148" y2="232" stroke="#9A8877" stroke-width="0.75"/>
+            <line x1="144" y1="30" x2="144" y2="232" stroke="#9A8877" stroke-width="0.75"/>
+            <!-- Dimension arrows -->
+            <polyline points="142,38 144,30 146,38" stroke="#9A8877" stroke-width="0.75"/>
+            <polyline points="142,224 144,232 146,224" stroke="#9A8877" stroke-width="0.75"/>
+            <!-- Dimension text -->
+            <text x="154" y="135" fill="#756253" font-size="9" font-family="'Plus Jakarta Sans', sans-serif">9″</text>
+
+            <!-- Top neck diameter callout -->
+            <line x1="58" y1="20" x2="102" y2="20" stroke="#9A8877" stroke-width="0.75"/>
+            <line x1="62" y1="16" x2="62" y2="26" stroke="#9A8877" stroke-width="0.75"/>
+            <line x1="98" y1="16" x2="98" y2="26" stroke="#9A8877" stroke-width="0.75"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ── SECTION 3: FEATURED COLLECTION ──────────────────────── -->
+<section class="featured-section" id="featured" aria-label="Featured Collection">
+  <div class="container">
+
+    <!-- Header bar -->
+    <div class="section-heading-row">
+      <h2 class="featured-title">
+        <span>Featured Collection</span>
+        <span class="heading-dash" aria-hidden="true">──</span>
+      </h2>
+
+      <a routerLink="/shop" class="header-view-all">
+        <span>View All</span>
+        <span class="arrow-glyph" aria-hidden="true">→</span>
+      </a>
+    </div>
+
+    <!-- 4 Product Cards Grid -->
+    <div class="product-cards-grid">
+      @for (item of featuredProducts; track item.id) {
+        <article class="artisan-product-card">
+          <!-- Image Box with direct link -->
+          <a [routerLink]="['/products', item.slug]" class="card-image-box" [attr.aria-label]="item.name">
+            <img [src]="item.image"
+                 [alt]="item.name"
+                 (error)="$any($event.target).src = 'assets/products/golden-ember-bowl.jpg'"
+                 class="card-product-img"
+                 loading="lazy">
+          </a>
+
+          <!-- Details & Action Row -->
+          <div class="card-info-row">
+            <div class="card-meta">
+              <h3 class="card-product-title">
+                <a [routerLink]="['/products', item.slug]">{{ item.name }}</a>
+              </h3>
+              <p class="card-product-price">{{ formatPrice(item.price) }}</p>
+            </div>
+
+            <!-- Circular Cart Icon Button -->
+            <button class="circle-cart-btn"
+                    (click)="quickAddToCart(item, $event)"
+                    [attr.aria-label]="'Add ' + item.name + ' to cart'"
+                    title="Add to cart">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+                <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
+                <line x1="3" y1="6" x2="21" y2="6"/>
+                <path d="M16 10a4 4 0 0 1-8 0"/>
+              </svg>
+            </button>
+          </div>
+        </article>
+      }
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ── SECTION 4: SPLIT BANNER (MATERIALS + SHOP BY CATEGORY) ─ -->
+<section class="split-section" aria-label="Materials and Shop by Category">
+  <div class="split-layout-grid">
+
+    <!-- Left Half: Dark Workshop Materials Banner -->
+    <div class="split-half-materials">
+      <div class="materials-bg-image-wrapper" aria-hidden="true">
+        <img src="assets/images/workshop.png"
+             alt="Artisan wood shavings and workshop table"
+             class="materials-bg-img">
+        <div class="materials-overlay"></div>
+      </div>
+
+      <div class="materials-content">
+        <span class="materials-eyebrow">MATERIALS</span>
+
+        <h2 class="materials-headline">
+          From nature.<br>
+          To your home.
+        </h2>
+
+        <p class="materials-description">
+          We work with carefully selected woods, each chosen for its character, grain and durability. No two pieces are ever the same.
+        </p>
+
+        <a routerLink="/about" class="materials-cta-btn" id="materials-learn-btn">
+          <span>Learn More</span>
+          <span class="btn-arrow" aria-hidden="true">→</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Right Half: Shop by Category -->
+    <div class="split-half-categories">
+      <div class="categories-content-inner">
+
+        <!-- Category Header -->
+        <div class="category-heading-row">
+          <h2 class="category-headline">
+            <span>Shop by Category</span>
+            <span class="heading-dash" aria-hidden="true">──</span>
+          </h2>
+
+          <a routerLink="/shop" class="header-view-all">
+            <span>View All</span>
+            <span class="arrow-glyph" aria-hidden="true">→</span>
+          </a>
+        </div>
+
+        <!-- 4 Category Cards Grid -->
+        <div class="category-cards-grid">
+          @for (cat of shopCategories; track cat.name) {
+            <a [routerLink]="['/shop']"
+               [queryParams]="{ subCategory: cat.slug }"
+               class="category-artisan-card">
+              <div class="cat-image-wrapper">
+                <img [src]="cat.image"
+                     [alt]="cat.name + ' handcrafted category'"
+                     class="cat-card-img"
+                     loading="lazy">
+              </div>
+
+              <div class="cat-card-caption">
+                <h3 class="cat-card-title">{{ cat.name }}</h3>
+                <div class="cat-card-action">
+                  <span class="cat-item-count">{{ cat.count }} products</span>
+                  <span class="cat-card-arrow" aria-hidden="true">→</span>
+                </div>
+              </div>
+            </a>
+          }
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</section>

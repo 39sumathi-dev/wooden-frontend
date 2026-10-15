@@ -1,0 +1,869 @@
+<!-- SK WOOD TURNERY — ARTISAN WORKSHOP ADMIN CONSOLE -->
+<div class="admin-wrapper">
+  <!-- Toast Notification -->
+  <div class="admin-toast" *ngIf="toastMessage()">
+    <span class="toast-dot"></span>
+    <span class="toast-text">{{ toastMessage() }}</span>
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- 1. LOGIN PORTAL (SHOWN WHEN NOT AUTHENTICATED) -->
+  <!-- ======================================================== -->
+  <div class="login-view" *ngIf="!adminService.isAuthenticated()">
+    <div class="login-card">
+      <div class="login-header">
+        <div class="login-seal">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+          </svg>
+        </div>
+        <div class="hallmark-tag">SK WOOD TURNERY</div>
+        <h1 class="login-title">Workshop Control Console</h1>
+        <p class="login-desc">
+          Restricted access for woodcraft catalog administration, Cloudflare R2 storage assets, and order fulfillment.
+        </p>
+      </div>
+
+      <form class="login-form" (submit)="$event.preventDefault(); onLogin()">
+        <div class="form-group">
+          <label for="adminUsername">Admin Username</label>
+          <div class="input-with-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+              <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+            <input
+              id="adminUsername"
+              type="text"
+              [(ngModel)]="loginUsername"
+              name="username"
+              placeholder="admin"
+              required
+              autocomplete="username"
+            />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="adminPassword">Master Password</label>
+          <div class="input-with-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+            </svg>
+            <input
+              id="adminPassword"
+              type="password"
+              [(ngModel)]="loginPassword"
+              name="password"
+              placeholder="••••••••••••"
+              required
+              autocomplete="current-password"
+            />
+          </div>
+        </div>
+
+        <div class="login-error" *ngIf="loginError()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="12" y1="8" x2="12" y2="12"></line>
+            <line x1="12" y1="16" x2="12.01" y2="16"></line>
+          </svg>
+          <span>{{ loginError() }}</span>
+        </div>
+
+        <button type="submit" class="btn-login" [disabled]="loginLoading()">
+          <span *ngIf="!loginLoading()">Enter Workshop Console</span>
+          <span *ngIf="loginLoading()" class="btn-spinner">Authenticating...</span>
+        </button>
+
+        <!-- Environment Info Pill -->
+        <div class="login-footer-info">
+          <div class="info-row">
+            <span class="status-indicator-dot online"></span>
+            <span>MongoDB Atlas (cluster0.tp0iccb.mongodb.net)</span>
+          </div>
+          <div class="info-row">
+            <span class="status-indicator-dot online"></span>
+            <span>Cloudflare R2 Bucket (woodturnery-products)</span>
+          </div>
+          <div class="creds-hint">
+            <strong>Default Access:</strong> Username: <code>admin</code> | Password: <code>woodturnery2026</code>
+          </div>
+        </div>
+
+        <div class="back-link">
+          <a routerLink="/">← Return to Public Storefront</a>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- 2. AUTHENTICATED WORKSHOP CONSOLE -->
+  <!-- ======================================================== -->
+  <div class="console-view" *ngIf="adminService.isAuthenticated()">
+    <!-- Top Admin Bar -->
+    <header class="admin-header">
+      <div class="header-left">
+        <a routerLink="/" class="admin-brand">
+          <span class="brand-crest">SK</span>
+          <div class="brand-text">
+            <span class="brand-name">SK Wood Turnery</span>
+            <span class="brand-console">Workshop Admin Studio</span>
+          </div>
+        </a>
+
+        <!-- System Status Badges -->
+        <div class="system-pills">
+          <div class="system-pill" title="MongoDB Atlas Connected">
+            <span class="pulse-dot green"></span>
+            <span class="pill-label">MongoDB Atlas</span>
+          </div>
+          <div class="system-pill" title="Cloudflare R2 Storage Active">
+            <span class="pulse-dot green"></span>
+            <span class="pill-label">Cloudflare R2 (woodturnery-products)</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Navigation Tabs -->
+      <nav class="admin-tabs">
+        <button
+          class="tab-btn"
+          [class.active]="activeTab() === 'products'"
+          (click)="activeTab.set('products')"
+        >
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+            <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+          </svg>
+          <span>Catalog Products</span>
+          <span class="tab-badge">{{ products().length }}</span>
+        </button>
+
+        <button
+          class="tab-btn"
+          [class.active]="activeTab() === 'orders'"
+          (click)="activeTab.set('orders')"
+        >
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <path d="M16 10a4 4 0 0 1-8 0"></path>
+          </svg>
+          <span>Customer Orders</span>
+          <span class="tab-badge">{{ orders().length }}</span>
+        </button>
+
+        <button
+          class="tab-btn"
+          [class.active]="activeTab() === 'storage'"
+          (click)="activeTab.set('storage')"
+        >
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"></path>
+          </svg>
+          <span>Cloudflare R2 Assets</span>
+        </button>
+      </nav>
+
+      <!-- Right Actions -->
+      <div class="header-right">
+        <div class="user-pill">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+          </svg>
+          <span>{{ adminService.currentUser() || 'admin' }}</span>
+        </div>
+
+        <a routerLink="/" class="btn-storefront-link" title="Open Storefront in New Tab" target="_blank">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+            <polyline points="15 3 21 3 21 9"></polyline>
+            <line x1="10" y1="14" x2="21" y2="3"></line>
+          </svg>
+          <span>Storefront</span>
+        </a>
+
+        <button class="btn-logout" (click)="onLogout()" title="Log out">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+            <polyline points="16 17 21 12 16 7"></polyline>
+            <line x1="21" y1="12" x2="9" y2="12"></line>
+          </svg>
+          <span>Logout</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Workspace Container -->
+    <main class="console-body">
+      <!-- ======================================================== -->
+      <!-- TAB 1: PRODUCTS CATALOG & EDITOR -->
+      <!-- ======================================================== -->
+      <div class="tab-pane" *ngIf="activeTab() === 'products'">
+        <!-- Stats Bar -->
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-meta">Total Catalog Pieces</div>
+            <div class="stat-value">{{ products().length }}</div>
+            <div class="stat-sub">Persisted in MongoDB Atlas</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-meta">Featured Masterworks</div>
+            <div class="stat-value">{{ featuredCount }}</div>
+            <div class="stat-sub">Showcased on Landing Page</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-meta">Timber Species</div>
+            <div class="stat-value">{{ timbersCount }}</div>
+            <div class="stat-sub">Oak, Rosewood, Maple & Burls</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-meta">Pending Customer Orders</div>
+            <div class="stat-value">{{ orders().length }}</div>
+            <div class="stat-sub">Fulfillment & Delivery</div>
+          </div>
+        </div>
+
+        <!-- Catalog Toolbar -->
+        <div class="catalog-toolbar">
+          <div class="toolbar-search">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <input
+              type="text"
+              placeholder="Search by product name, timber species, or SKU..."
+              [ngModel]="productSearch()"
+              (ngModelChange)="productSearch.set($event)"
+            />
+          </div>
+
+          <div class="toolbar-filter">
+            <select
+              [ngModel]="categoryFilter()"
+              (ngModelChange)="categoryFilter.set($event)"
+            >
+              <option value="all">All Disciplines & Categories</option>
+              <option *ngFor="let cat of mainCategories" [value]="cat">{{ cat }}</option>
+            </select>
+          </div>
+
+          <div class="toolbar-actions">
+            <button class="btn-refresh" (click)="loadProducts()" title="Reload from MongoDB Atlas">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"></path>
+              </svg>
+              <span>Refresh</span>
+            </button>
+
+            <button class="btn-add-product" (click)="openCreateModal()">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="12" y1="5" x2="12" y2="19"></line>
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+              </svg>
+              <span>New Turned Product</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Products List Table -->
+        <div class="products-table-container">
+          <div class="loading-state" *ngIf="loadingProducts()">
+            <div class="loading-spinner"></div>
+            <span>Fetching live artisan collection from MongoDB Atlas...</span>
+          </div>
+
+          <table class="products-table" *ngIf="!loadingProducts() && filteredProducts.length > 0">
+            <thead>
+              <tr>
+                <th style="width: 80px;">Image</th>
+                <th>Product & Timber</th>
+                <th>Category / Discipline</th>
+                <th>Base Price</th>
+                <th>Variants</th>
+                <th>Badge</th>
+                <th>Status</th>
+                <th style="text-align: right;">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let p of filteredProducts">
+                <td>
+                  <div class="product-thumb">
+                    <img
+                      [src]="(p.images && p.images.length > 0 ? p.images[0] : 'assets/products/bowl-oak.png')"
+                      [alt]="p.name"
+                      (error)="$any($event.target).src = 'assets/products/bowl-oak.png'"
+                    />
+                  </div>
+                </td>
+                <td>
+                  <div class="product-info-cell">
+                    <div class="product-title">{{ p.name }}</div>
+                    <div class="product-subtext">
+                      <span class="timber-badge">{{ p.timber || 'Solid Hardwood' }}</span>
+                      <span class="sku-id">#{{ p.id }}</span>
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <div class="category-cell">
+                    <span class="cat-primary">{{ p.mainCategory }}</span>
+                    <span class="cat-sub">{{ p.subCategory }}</span>
+                  </div>
+                </td>
+                <td>
+                  <div class="price-cell">
+                    {{ formatPrice(p.price || (p.variants?.[0]?.price)) }}
+                  </div>
+                </td>
+                <td>
+                  <span class="variants-count">{{ p.variants?.length || 1 }} Size(s)</span>
+                </td>
+                <td>
+                  <span class="table-badge" *ngIf="p.badge">{{ p.badge }}</span>
+                  <span class="table-badge-none" *ngIf="!p.badge">—</span>
+                </td>
+                <td>
+                  <span class="featured-indicator" *ngIf="p.isFeatured">Featured</span>
+                  <span class="new-indicator" *ngIf="p.isNew">New</span>
+                </td>
+                <td>
+                  <div class="table-actions">
+                    <button class="action-btn edit" (click)="openEditModal(p)" title="Edit Product Details & Images">
+                      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                        <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                      </svg>
+                      <span>Edit</span>
+                    </button>
+
+                    <a [routerLink]="['/products', p.id]" target="_blank" class="action-btn view" title="View in Storefront">
+                      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                        <circle cx="12" cy="12" r="3"></circle>
+                      </svg>
+                    </a>
+
+                    <button class="action-btn delete" (click)="deleteProduct(p)" title="Delete from MongoDB Atlas">
+                      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="3 6 5 6 21 6"></polyline>
+                        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                      </svg>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <!-- Empty State -->
+          <div class="empty-state" *ngIf="!loadingProducts() && filteredProducts.length === 0">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <h3>No products found</h3>
+            <p>Try refining your search term or category filter, or create a new turned wood piece.</p>
+            <button class="btn-add-product" (click)="openCreateModal()">Create New Product</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ======================================================== -->
+      <!-- TAB 2: ORDERS & FULFILLMENT -->
+      <!-- ======================================================== -->
+      <div class="tab-pane" *ngIf="activeTab() === 'orders'">
+        <!-- Orders Toolbar -->
+        <div class="orders-toolbar">
+          <div class="filter-pills">
+            <button
+              class="pill-btn"
+              [class.active]="orderStatusFilter() === 'all'"
+              (click)="orderStatusFilter.set('all')"
+            >
+              All Orders ({{ orders().length }})
+            </button>
+            <button
+              class="pill-btn"
+              [class.active]="orderStatusFilter() === 'PAID'"
+              (click)="orderStatusFilter.set('PAID')"
+            >
+              Paid
+            </button>
+            <button
+              class="pill-btn"
+              [class.active]="orderStatusFilter() === 'PENDING_PAYMENT'"
+              (click)="orderStatusFilter.set('PENDING_PAYMENT')"
+            >
+              Pending Payment
+            </button>
+            <button
+              class="pill-btn"
+              [class.active]="orderStatusFilter() === 'PROCESSING'"
+              (click)="orderStatusFilter.set('PROCESSING')"
+            >
+              In Workshop
+            </button>
+            <button
+              class="pill-btn"
+              [class.active]="orderStatusFilter() === 'SHIPPED'"
+              (click)="orderStatusFilter.set('SHIPPED')"
+            >
+              Dispatched
+            </button>
+            <button
+              class="pill-btn"
+              [class.active]="orderStatusFilter() === 'DELIVERED'"
+              (click)="orderStatusFilter.set('DELIVERED')"
+            >
+              Delivered
+            </button>
+          </div>
+
+          <button class="btn-refresh" (click)="loadOrders()">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"></path>
+            </svg>
+            <span>Refresh Orders</span>
+          </button>
+        </div>
+
+        <!-- Orders List -->
+        <div class="orders-container">
+          <div class="loading-state" *ngIf="loadingOrders()">
+            <div class="loading-spinner"></div>
+            <span>Loading orders from MongoDB Atlas...</span>
+          </div>
+
+          <div class="orders-grid" *ngIf="!loadingOrders() && filteredOrders.length > 0">
+            <div class="order-card" *ngFor="let order of filteredOrders">
+              <!-- Order Header -->
+              <div class="order-card-header">
+                <div class="order-id-group">
+                  <span class="order-id">{{ order.id }}</span>
+                  <span class="order-time">{{ order.createdAt | date:'medium' }}</span>
+                </div>
+                <div class="order-status-badge" [attr.data-status]="order.status">
+                  {{ order.status }}
+                </div>
+              </div>
+
+              <!-- Customer Info -->
+              <div class="order-customer-box" *ngIf="order.shipping">
+                <div class="customer-row">
+                  <span class="customer-name"><strong>{{ order.shipping.fullName }}</strong></span>
+                  <span class="customer-contact">{{ order.shipping.phone }} • {{ order.shipping.email }}</span>
+                </div>
+                <div class="customer-address">
+                  {{ order.shipping.addressLine1 }}<span *ngIf="order.shipping.addressLine2">, {{ order.shipping.addressLine2 }}</span>,
+                  {{ order.shipping.city }}, {{ order.shipping.state }} - {{ order.shipping.postalCode }}
+                </div>
+              </div>
+
+              <!-- Items Breakdown -->
+              <div class="order-items-list">
+                <div class="order-item-row" *ngFor="let item of order.items">
+                  <img [src]="item.image" [alt]="item.productName" (error)="$any($event.target).src = 'assets/products/bowl-oak.png'" class="item-img" />
+                  <div class="item-details">
+                    <div class="item-title">{{ item.productName }}</div>
+                    <div class="item-variant">{{ item.variantLabel }} (Qty: {{ item.quantity }})</div>
+                  </div>
+                  <div class="item-price">{{ formatPrice(item.price * item.quantity) }}</div>
+                </div>
+              </div>
+
+              <!-- Order Summary & Actions -->
+              <div class="order-card-footer">
+                <div class="order-total-block">
+                  <div class="total-label">Total Amount:</div>
+                  <div class="total-val">{{ formatPrice(order.totalAmount) }}</div>
+                  <div class="payment-method-tag">{{ order.paymentMethod | uppercase }} • {{ order.paymentStatus }}</div>
+                </div>
+
+                <div class="fulfillment-control">
+                  <label>Update Status:</label>
+                  <select
+                    [ngModel]="order.status"
+                    (ngModelChange)="updateOrderStatus(order.id, $event)"
+                  >
+                    <option value="PENDING_PAYMENT">Pending Payment</option>
+                    <option value="PAID">Paid / Confirmed</option>
+                    <option value="PROCESSING">Workshop Polishing</option>
+                    <option value="SHIPPED">Dispatched / En Route</option>
+                    <option value="DELIVERED">Delivered</option>
+                    <option value="CANCELLED">Cancelled</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Empty orders -->
+          <div class="empty-state" *ngIf="!loadingOrders() && filteredOrders.length === 0">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+              <line x1="3" y1="6" x2="21" y2="6"></line>
+              <path d="M16 10a4 4 0 0 1-8 0"></path>
+            </svg>
+            <h3>No orders matching this filter</h3>
+            <p>New orders submitted by customers at checkout will immediately appear here via MongoDB Atlas.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ======================================================== -->
+      <!-- TAB 3: CLOUDFLARE R2 STORAGE MANAGER & TESTER -->
+      <!-- ======================================================== -->
+      <div class="tab-pane" *ngIf="activeTab() === 'storage'">
+        <div class="storage-dashboard">
+          <!-- R2 Credential & Status Summary Card -->
+          <div class="r2-card">
+            <div class="r2-header">
+              <div class="r2-icon-box">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                  <path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"></path>
+                </svg>
+              </div>
+              <div class="r2-title-box">
+                <h2>Cloudflare R2 Object Storage</h2>
+                <p>Enterprise S3-compatible cloud object storage with zero egress fees</p>
+              </div>
+              <div class="r2-status-pill">
+                <span class="pulse-dot green"></span>
+                <span>Active & Connected</span>
+              </div>
+            </div>
+
+            <div class="r2-specs-grid">
+              <div class="spec-item">
+                <span class="spec-label">Target Bucket</span>
+                <span class="spec-val">woodturnery-products</span>
+              </div>
+              <div class="spec-item">
+                <span class="spec-label">Cloudflare Account ID</span>
+                <span class="spec-val">d1525a74e2b02e70e303496660cb0fc3</span>
+              </div>
+              <div class="spec-item">
+                <span class="spec-label">Streaming Proxy Gateway</span>
+                <span class="spec-val">http://127.0.0.1:8000/api/images/{{ '{filename}' }}</span>
+              </div>
+              <div class="spec-item">
+                <span class="spec-label">Local Asset Fallback Cache</span>
+                <span class="spec-val">Enabled (src/assets/products/)</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Direct Cloudflare R2 Upload Tester -->
+          <div class="r2-tester-card">
+            <div class="tester-header">
+              <h3>Upload Image Directly to Cloudflare R2</h3>
+              <p>Test upload any product photograph or artisan shot to verify your live Cloudflare R2 bucket credentials.</p>
+            </div>
+
+            <div class="upload-dropzone">
+              <input
+                type="file"
+                #testerFileInput
+                (change)="onTesterImageSelected($event)"
+                accept=".jpg,.jpeg,image/jpeg,image/jpg,image/png,image/webp"
+                style="display: none;"
+              />
+
+              <div class="dropzone-content" (click)="testerFileInput.click()">
+                <div class="upload-icon-circle">
+                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                    <polyline points="17 8 12 3 7 8"></polyline>
+                    <line x1="12" y1="3" x2="12" y2="15"></line>
+                  </svg>
+                </div>
+                <div class="dropzone-text">
+                  <strong>Click to select a JPEG or JPG photograph to upload</strong>
+                  <span>Accepts JPEG, JPG (automatically compressed & uploaded to Cloudflare R2)</span>
+                </div>
+                <button type="button" class="btn-select-file" [disabled]="testerUploadLoading()">
+                  <span *ngIf="!testerUploadLoading()">Select Image File</span>
+                  <span *ngIf="testerUploadLoading()">Compressing & Uploading to Cloudflare R2...</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Upload Result Display -->
+            <div class="upload-result-card" *ngIf="testerUploadedUrl()">
+              <div class="result-badge">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+                <span>Successfully Compressed & Stored in Cloudflare R2 Bucket!</span>
+              </div>
+
+              <div class="result-grid">
+                <div class="result-preview">
+                  <img [src]="testerUploadedUrl()" alt="R2 Uploaded Image" />
+                </div>
+                <div class="result-info">
+                  <div class="info-group">
+                    <label>File Key / Name in R2:</label>
+                    <code>{{ testerUploadedFilename() }}</code>
+                  </div>
+
+                  <div class="info-group" *ngIf="testerUploadStats()">
+                    <label>Compression Performance:</label>
+                    <code style="color: #6ee7b7;">
+                      {{ (testerUploadStats().originalBytes / 1024).toFixed(1) }} KB → {{ (testerUploadStats().compressedBytes / 1024).toFixed(1) }} KB ({{ testerUploadStats().reductionPercent }}% reduction)
+                    </code>
+                  </div>
+
+                  <div class="info-group">
+                    <label>Generated CDN / Proxy URL:</label>
+                    <div class="url-copy-box">
+                      <input type="text" [value]="testerUploadedUrl()" readonly />
+                      <button (click)="copyToClipboard(testerUploadedUrl()!)">Copy</button>
+                    </div>
+                  </div>
+                  <div class="info-help">
+                    Image is live in Cloudflare R2 and served instantly on the website.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- 3. PRODUCT EDITOR MODAL (CREATE / EDIT) -->
+  <!-- ======================================================== -->
+  <div class="modal-backdrop" *ngIf="showProductModal()" (click)="closeModal()">
+    <div class="modal-card" (click)="$event.stopPropagation()">
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <div class="modal-title-box">
+          <div class="modal-kicker">WORKSHOP CATALOG EDITOR</div>
+          <h2 class="modal-title">
+            {{ isNewProduct() ? 'Craft New Turned Product' : 'Edit Turned Object: ' + editingProduct.name }}
+          </h2>
+        </div>
+        <button class="modal-close-btn" (click)="closeModal()">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Modal Body -->
+      <div class="modal-body">
+        <div class="modal-form-grid">
+          <!-- Left Column: Details -->
+          <div class="form-col-left">
+            <div class="form-section-title">Object Specifications</div>
+
+            <div class="modal-field">
+              <label>Product Title / Name *</label>
+              <input
+                type="text"
+                [(ngModel)]="editingProduct.name"
+                placeholder="e.g. American White Oak Salad Bowl"
+                required
+              />
+            </div>
+
+            <div class="modal-field-row">
+              <div class="modal-field">
+                <label>Main Category *</label>
+                <select
+                  [(ngModel)]="editingProduct.mainCategory"
+                  (ngModelChange)="onMainCategoryChange()"
+                >
+                  <option *ngFor="let cat of mainCategories" [value]="cat">{{ cat }}</option>
+                </select>
+              </div>
+
+              <div class="modal-field">
+                <label>Subcategory *</label>
+                <select [(ngModel)]="editingProduct.subCategory">
+                  <option *ngFor="let sub of subCategoryMap[editingProduct.mainCategory]" [value]="sub">
+                    {{ sub }}
+                  </option>
+                </select>
+              </div>
+            </div>
+
+            <div class="modal-field-row">
+              <div class="modal-field">
+                <label>Timber Species</label>
+                <input
+                  type="text"
+                  [(ngModel)]="editingProduct.timber"
+                  placeholder="e.g. American White Oak, Indian Rosewood"
+                />
+              </div>
+
+              <div class="modal-field">
+                <label>Collection Badge (Optional)</label>
+                <input
+                  type="text"
+                  [(ngModel)]="editingProduct.badge"
+                  placeholder="e.g. Bestseller, Limited, Gallery Piece"
+                />
+              </div>
+            </div>
+
+            <div class="checkbox-row">
+              <label class="custom-checkbox">
+                <input type="checkbox" [(ngModel)]="editingProduct.isFeatured" />
+                <span class="chk-label">Feature on Homepage Gallery</span>
+              </label>
+
+              <label class="custom-checkbox">
+                <input type="checkbox" [(ngModel)]="editingProduct.isNew" />
+                <span class="chk-label">Mark as New Workshop Creation</span>
+              </label>
+            </div>
+
+            <div class="modal-field">
+              <label>Artisan Narrative & Description *</label>
+              <textarea
+                rows="4"
+                [(ngModel)]="editingProduct.description"
+                placeholder="Describe the grain, turning process, food-safe oil finish, and tactile characteristics..."
+              ></textarea>
+            </div>
+          </div>
+
+          <!-- Right Column: Images (Cloudflare R2) & Variants -->
+          <div class="form-col-right">
+            <!-- Cloudflare R2 Image Upload Section -->
+            <div class="form-section-title">
+              <span>Cloudflare R2 Image Gallery</span>
+              <span class="r2-badge-pill">R2 Bucket Active</span>
+            </div>
+
+            <div class="image-upload-zone">
+              <input
+                type="file"
+                #productImageInput
+                (change)="onImageFileSelected($event)"
+                accept=".jpg,.jpeg,image/jpeg,image/jpg,image/png,image/webp"
+                style="display: none;"
+              />
+
+              <button
+                type="button"
+                class="btn-upload-r2"
+                (click)="productImageInput.click()"
+                [disabled]="uploadLoading()"
+              >
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                  <polyline points="17 8 12 3 7 8"></polyline>
+                  <line x1="12" y1="3" x2="12" y2="15"></line>
+                </svg>
+                <span *ngIf="!uploadLoading()">Upload Photo to Cloudflare R2 (Auto-Compressed)</span>
+                <span *ngIf="uploadLoading()">Compressing & Uploading to R2...</span>
+              </button>
+
+              <div class="upload-feedback" *ngIf="uploadStatus()">
+                {{ uploadStatus() }}
+              </div>
+
+              <!-- Manual URL Input Option -->
+              <div class="manual-url-row">
+                <input
+                  type="text"
+                  placeholder="Or paste image URL (assets/... or https://...)"
+                  [(ngModel)]="manualImageUrl"
+                  (keyup.enter)="addManualImage()"
+                />
+                <button type="button" class="btn-add-url" (click)="addManualImage()">Add</button>
+              </div>
+
+              <!-- Image Thumbnails List -->
+              <div class="modal-images-grid" *ngIf="editingProduct.images?.length">
+                <div class="modal-image-thumb" *ngFor="let img of editingProduct.images; let i = index">
+                  <img [src]="img" alt="Product image {{ i + 1 }}" (error)="$any($event.target).src = 'assets/products/bowl-oak.png'" />
+                  <span class="primary-badge" *ngIf="i === 0">Primary</span>
+                  <button type="button" class="btn-remove-img" (click)="removeProductImage(i)" title="Remove image">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <line x1="18" y1="6" x2="6" y2="18"></line>
+                      <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Pricing & Variants Section -->
+            <div class="form-section-title" style="margin-top: 1.5rem;">
+              <span>Pricing & Lathe Variants</span>
+              <button type="button" class="btn-add-variant" (click)="addVariant()">
+                + Add Size / Variant
+              </button>
+            </div>
+
+            <div class="variants-editor-list">
+              <div class="variant-item-row" *ngFor="let v of editingProduct.variants; let vi = index">
+                <div class="var-field label-col">
+                  <label>Label</label>
+                  <input type="text" [(ngModel)]="v.label" placeholder="e.g. Standard 25cm" />
+                </div>
+                <div class="var-field price-col">
+                  <label>Price ($)</label>
+                  <input type="number" [(ngModel)]="v.price" placeholder="95" />
+                </div>
+                <div class="var-field dims-col">
+                  <label>Dimensions</label>
+                  <input type="text" [(ngModel)]="v.dimensions" placeholder="25cm × 9cm" />
+                </div>
+                <button
+                  type="button"
+                  class="btn-remove-var"
+                  (click)="removeVariant(vi)"
+                  *ngIf="editingProduct.variants!.length > 1"
+                  title="Remove variant"
+                >
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="3 6 5 6 21 6"></polyline>
+                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Save Error Message -->
+        <div class="modal-save-error" *ngIf="saveError()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="12" y1="8" x2="12" y2="12"></line>
+            <line x1="12" y1="16" x2="12.01" y2="16"></line>
+          </svg>
+          <span>{{ saveError() }}</span>
+        </div>
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn-cancel" (click)="closeModal()" [disabled]="saveLoading()">
+          Cancel
+        </button>
+        <button type="button" class="btn-save" (click)="saveProduct()" [disabled]="saveLoading()">
+          <span *ngIf="!saveLoading()">Save to MongoDB Atlas</span>
+          <span *ngIf="saveLoading()">Saving Object...</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

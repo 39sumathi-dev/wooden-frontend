@@ -1,0 +1,214 @@
+<div class="about-page">
+
+  <!-- Header / Hero Banner -->
+  <header class="about-hero">
+    <div class="container about-hero-inner">
+      <div class="about-hero-text">
+        <span class="type-label reveal" style="color: var(--oak);">The Studio & The Lathe</span>
+        <h1 class="about-title reveal delay-100">
+          We do not manufacture.<br>
+          <span class="type-display-italic">We reveal.</span>
+        </h1>
+        <p class="about-intro type-body reveal delay-200">
+          SK Wood Turnery exists at the intersection of raw botanical nature and deliberate human hand.
+          Every piece begins with a solid billet of seasoned hardwood and leaves the spinning chuck
+          as a singular, enduring object.
+        </p>
+      </div>
+
+      <div class="about-hero-stats reveal delay-300">
+        <div class="stat-item">
+          <span class="stat-number">100%</span>
+          <span class="stat-label type-label">Solid Hardwood Billets</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number">0</span>
+          <span class="stat-label type-label">Veneers or Synthetic Fillers</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number">1 of 1</span>
+          <span class="stat-label type-label">Every Grain Pattern Unique</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Editorial Section: The Craftsman & Philosophy -->
+  <section class="story-section container">
+    <div class="story-grid">
+      <div class="story-media reveal-left">
+        <div class="story-img-wrap">
+          <img src="assets/images/craftsman.png"
+               alt="Master woodturner examining grain orientation at the lathe"
+               class="story-img"
+               loading="lazy">
+          <div class="img-caption">
+            <span class="type-label">The Lathe • Hand tool turning</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="story-content reveal-right">
+        <div class="section-tag">
+          <span class="tag-line"></span>
+          <span class="type-label">The Philosophy</span>
+        </div>
+        <h2 class="story-heading">
+          Listening to the grain before the gouge meets the timber.
+        </h2>
+        <div class="story-paragraphs">
+          <p class="type-body text-muted">
+            In modern mass production, wood is flattened, sliced, laminated, and disguised. Woodturning
+            demands the exact opposite attitude: humility before the tree’s lived memory.
+          </p>
+          <p class="type-body text-muted">
+            The growth rings of twenty, fifty, or eighty seasons determine how the gouge must bevel
+            against the spinning timber. Knot clusters, bark inclusions, and medullary rays are not
+            flaws to be planed away — they are the compositional centerpieces of our work.
+          </p>
+          <blockquote class="story-quote">
+            <p class="type-h3">
+              “The machine provides rotational inertia, but the curve is purely an extension of human breath and wrist control.”
+            </p>
+            <cite class="type-label">— SK, Founder & Master Woodturner</cite>
+          </blockquote>
+
+          <div class="maker-hallmark-badge">
+            <img src="assets/logo/logo.jpg" alt="SK Wood Turnery Official Maker's Mark" class="hallmark-stamp" width="80" height="66">
+            <div class="hallmark-text">
+              <span class="type-label text-oak">Workshop Hallmark & Seal</span>
+              <span class="type-small text-muted">Each piece is individually turned and branded with our authentic lathe hallmark</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Full Workshop Atmosphere Banner -->
+  <section class="workshop-banner">
+    <div class="workshop-bg">
+      <img src="assets/images/workshop.png"
+           alt="SK Wood Turnery workshop with hand chisels, wood curls, and turnings"
+           class="workshop-img"
+           loading="lazy">
+      <div class="workshop-overlay"></div>
+    </div>
+    <div class="container workshop-content">
+      <div class="workshop-card reveal">
+        <span class="type-label" style="color: var(--oak);">Inside The Workshop</span>
+        <h2 class="type-h2" style="color: var(--ivory); margin-top: 0.5rem;">
+          Quiet mornings, sharp chisels, fragrant shavings.
+        </h2>
+        <p class="type-body text-muted" style="margin-top: 1rem;">
+          Our workshop maintains a deliberate tempo. We work with high-carbon steel gouges sharpened on Japanese water stones.
+          No automated CNC carving. No mass-market lacquer sprays. Only pure plant oils and carnauba wax hand-buffed
+          directly into the porous grain.
+        </p>
+        <div class="workshop-features">
+          <div class="wf-item">
+            <span class="wf-dot"></span>
+            <span class="type-small">Sustainably salvaged and certified timber only</span>
+          </div>
+          <div class="wf-item">
+            <span class="wf-dot"></span>
+            <span class="type-small">Food-grade organic finishes safe for daily tableware</span>
+          </div>
+          <div class="wf-item">
+            <span class="wf-dot"></span>
+            <span class="type-small">Each piece individually numbered and documented</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- The 4-Step Process -->
+  <section class="process-section container">
+    <div class="section-header reveal">
+      <span class="type-label" style="color: var(--oak);">The Craft Method</span>
+      <h2 class="type-h2" style="color: var(--ivory); margin-top: 0.4rem;">
+        From Raw Log to Everyday Heirloom
+      </h2>
+      <p class="type-body text-muted" style="max-width: 540px; margin-top: 0.75rem;">
+        Four distinct phases of patience, calibration, and material respect.
+      </p>
+    </div>
+
+    <div class="process-grid">
+      @for (item of processSteps; track item.step) {
+        <div class="process-card reveal">
+          <div class="process-step-num">{{ item.step }}</div>
+          <h3 class="process-card-title type-h4">{{ item.title }}</h3>
+          <p class="process-card-desc type-small text-muted">{{ item.desc }}</p>
+        </div>
+      }
+    </div>
+  </section>
+
+  <!-- Timber & Material Library -->
+  <section class="species-section">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="type-label" style="color: var(--oak);">Material Heritage</span>
+        <h2 class="type-h2" style="color: var(--ivory); margin-top: 0.4rem;">
+          The Woods We Turn
+        </h2>
+        <p class="type-body text-muted" style="max-width: 580px; margin-top: 0.75rem;">
+          Each timber species possesses its own hardness, pore geometry, aromatics, and aging patina.
+          Here is how we honour their characteristics.
+        </p>
+      </div>
+
+      <div class="species-grid">
+        @for (item of species; track item.name) {
+          <div class="species-card reveal">
+            <div class="species-top">
+              <span class="species-origin type-label">{{ item.origin }}</span>
+              <h3 class="species-name type-h3">{{ item.name }}</h3>
+            </div>
+            <p class="species-character type-body">{{ item.character }}</p>
+            <div class="species-meta">
+              <div class="meta-row">
+                <span class="meta-key type-label">Best Suited For:</span>
+                <span class="meta-val type-small">{{ item.usage }}</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-key type-label">Finish:</span>
+                <span class="meta-val type-small text-oak">{{ item.finish }}</span>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Custom Orders Callout -->
+  <section class="bespoke-callout container">
+    <div class="bespoke-box reveal">
+      <div class="bespoke-content">
+        <span class="type-label" style="color: var(--oak);">Commission A One-Of-A-Kind</span>
+        <h2 class="type-h2" style="color: var(--ivory); margin-top: 0.5rem;">
+          Have a specific dimension or timber in mind?
+        </h2>
+        <p class="type-body text-muted" style="margin-top: 1rem; max-width: 620px;">
+          We collaborate with private collectors, culinary establishments, architects, and designers to produce
+          bespoke centerpiece bowls, tableware sets, and architectural turned elements.
+        </p>
+        <div class="bespoke-actions">
+          <a routerLink="/contact" class="btn btn-oak" id="about-commission-btn">
+            <span>Inquire About Custom Turning</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </a>
+          <a routerLink="/shop" class="btn btn-outline-ivory" id="about-shop-btn">
+            <span>Browse Ready Pieces</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>

@@ -1,0 +1,215 @@
+<div class="contact-page">
+
+  <!-- Header -->
+  <header class="contact-header">
+    <div class="container contact-header-inner">
+      <div class="contact-header-text">
+        <span class="type-label reveal" style="color: var(--oak);">Direct Inquiries & Commissions</span>
+        <h1 class="type-h1 reveal delay-100" style="color: var(--ivory); margin-top: 0.4rem;">
+          Let’s discuss your piece.
+        </h1>
+        <p class="type-body text-muted reveal delay-200" style="margin-top: 0.75rem; max-width: 540px;">
+          Whether you seek a bespoke dining centerpiece, a single ceremonial vessel, or have inquiries regarding
+          our current collection, we welcome your correspondence.
+        </p>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content: Form & Studio Details -->
+  <div class="container contact-body">
+    <div class="contact-grid">
+
+      <!-- Form Column -->
+      <div class="contact-form-column reveal-left">
+        @if (submitted()) {
+          <div class="success-message" role="alert">
+            <div class="success-icon">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <polyline points="20 6 9 17 4 12"/>
+              </svg>
+            </div>
+            <h2 class="type-h3" style="color: var(--ivory); margin-top: 1rem;">Inquiry Received</h2>
+            <p class="type-body text-muted" style="margin-top: 0.5rem; line-height: 1.6;">
+              Thank you, {{ formData.name }}. The workshop will review your project details and respond within 24 to 48 hours.
+            </p>
+            <button class="btn btn-outline-ivory" style="margin-top: 1.5rem;" (click)="resetForm()">
+              <span>Send Another Message</span>
+            </button>
+          </div>
+
+        } @else {
+          <form class="commission-form" (ngSubmit)="onSubmit()" #contactForm="ngForm">
+            <div class="form-intro">
+              <h2 class="type-h3" style="color: var(--ivory);">Commission or Inquiry Form</h2>
+              <p class="type-small text-muted" style="margin-top: 0.35rem;">
+                Provide as much detail as you have. Rough ideas are equally welcome.
+              </p>
+            </div>
+
+            <!-- Name & Email Row -->
+            <div class="form-row">
+              <div class="form-group">
+                <label for="c-name" class="type-label">Your Name *</label>
+                <input type="text"
+                       id="c-name"
+                       name="name"
+                       [(ngModel)]="formData.name"
+                       required
+                       placeholder="e.g. Anand Sharma"
+                       class="form-input">
+              </div>
+
+              <div class="form-group">
+                <label for="c-email" class="type-label">Email Address *</label>
+                <input type="email"
+                       id="c-email"
+                       name="email"
+                       [(ngModel)]="formData.email"
+                       required
+                       placeholder="you@domain.com"
+                       class="form-input">
+              </div>
+            </div>
+
+            <!-- Phone & Project Type -->
+            <div class="form-row">
+              <div class="form-group">
+                <label for="c-phone" class="type-label">Phone Number (Optional)</label>
+                <input type="tel"
+                       id="c-phone"
+                       name="phone"
+                       [(ngModel)]="formData.phone"
+                       placeholder="+91 98765 43210"
+                       class="form-input">
+              </div>
+
+              <div class="form-group">
+                <label for="c-project-type" class="type-label">Project Type</label>
+                <select id="c-project-type"
+                        name="projectType"
+                        [(ngModel)]="formData.projectType"
+                        class="form-select">
+                  @for (pt of projectTypes; track pt) {
+                    <option [value]="pt">{{ pt }}</option>
+                  }
+                </select>
+              </div>
+            </div>
+
+            <!-- Timber & Dimensions -->
+            <div class="form-row">
+              <div class="form-group">
+                <label for="c-timber" class="type-label">Preferred Timber</label>
+                <select id="c-timber"
+                        name="timber"
+                        [(ngModel)]="formData.timber"
+                        class="form-select">
+                  @for (t of timberOptions; track t) {
+                    <option [value]="t">{{ t }}</option>
+                  }
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="c-dimensions" class="type-label">Approximate Dimensions (e.g. 35cm diameter)</label>
+                <input type="text"
+                       id="c-dimensions"
+                       name="dimensions"
+                       [(ngModel)]="formData.dimensions"
+                       placeholder="e.g. 30–40 cm wide bowl"
+                       class="form-input">
+              </div>
+            </div>
+
+            <!-- Message -->
+            <div class="form-group">
+              <label for="c-message" class="type-label">Message / Details *</label>
+              <textarea id="c-message"
+                        name="message"
+                        [(ngModel)]="formData.message"
+                        rows="5"
+                        required
+                        placeholder="Describe the object, its intended use, any aesthetic references or desired grain character..."
+                        class="form-textarea"></textarea>
+            </div>
+
+            <!-- Submit -->
+            <button type="submit"
+                    class="btn btn-oak submit-btn"
+                    [disabled]="!contactForm.valid || submitting()"
+                    id="submit-inquiry-btn">
+              <span>{{ submitting() ? 'Transmitting Details…' : 'Submit Inquiry' }}</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+              </svg>
+            </button>
+          </form>
+        }
+      </div>
+
+      <!-- Studio Details Column -->
+      <aside class="contact-info-column reveal-right" aria-label="Studio contact information">
+        <!-- Studio card -->
+        <div class="studio-card">
+          <div class="studio-badge">
+            <span class="type-label text-oak">Workshop & Studio</span>
+          </div>
+          <h2 class="type-h3" style="color: var(--ivory); margin-top: 0.5rem;">SK Wood Turnery</h2>
+          <p class="type-body text-muted" style="margin-top: 0.5rem; line-height: 1.65;">
+            Handcrafted timber turning studio committed to solid wood integrity and heritage craft techniques.
+          </p>
+
+          <div class="info-list">
+            <div class="info-item">
+              <span class="info-label type-label">Location</span>
+              <p class="info-val type-body">Tamil Nadu, India</p>
+            </div>
+            <div class="info-item">
+              <span class="info-label type-label">Commission Enquiries</span>
+              <a href="mailto:craft@skwoodturnery.com" class="info-val type-body text-oak">craft&#64;skwoodturnery.com</a>
+            </div>
+            <div class="info-item">
+              <span class="info-label type-label">Turnaround Time</span>
+              <p class="info-val type-body">2 to 4 weeks for bespoke commissions</p>
+            </div>
+            <div class="info-item">
+              <span class="info-label type-label">Finishes Standard</span>
+              <p class="info-val type-body">100% Food-Safe Pure Walnut Oil & Carnauba Wax</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Trust Note -->
+        <div class="wood-promise">
+          <h3 class="type-label" style="color: var(--oak); letter-spacing: 0.15em;">The Wood Promise</h3>
+          <p class="type-small text-muted" style="margin-top: 0.5rem; line-height: 1.65;">
+            Every turned object is carved from single-source timber. We never use veneer overlays, fiberboards,
+            or toxic plasticizing polyurethanes. The piece you hold is genuine solid wood through and through.
+          </p>
+        </div>
+      </aside>
+
+    </div>
+  </div>
+
+  <!-- FAQ Section -->
+  <section class="faq-section container">
+    <div class="section-header reveal">
+      <span class="type-label" style="color: var(--oak);">Common Questions</span>
+      <h2 class="type-h2" style="color: var(--ivory); margin-top: 0.4rem;">
+        Caring for Wood & Commission Guidelines
+      </h2>
+    </div>
+
+    <div class="faq-grid">
+      @for (faq of faqs; track faq.q) {
+        <div class="faq-card reveal">
+          <h3 class="faq-q type-h4">{{ faq.q }}</h3>
+          <p class="faq-a type-small text-muted">{{ faq.a }}</p>
+        </div>
+      }
+    </div>
+  </section>
+
+</div>

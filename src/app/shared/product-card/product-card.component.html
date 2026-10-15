@@ -1,0 +1,80 @@
+<article class="product-card" [class]="'variant-' + variant">
+  <!-- Image area -->
+  <a class="card-image-link"
+     [routerLink]="['/products', product.id]"
+     [attr.aria-label]="product.name">
+
+    <div class="card-image-wrap">
+      <img [src]="product.images[0]"
+           [alt]="product.name"
+           (error)="$any($event.target).src = 'assets/products/golden-ember-bowl.jpg'"
+           class="card-img"
+           loading="lazy">
+      <!-- Hover secondary image -->
+      @if (product.images.length > 1) {
+        <img [src]="product.images[1]"
+             [alt]="product.name + ' — alternate view'"
+             (error)="$any($event.target).src = 'assets/products/golden-ember-bowl.jpg'"
+             class="card-img card-img-hover"
+             loading="lazy">
+      }
+    </div>
+
+    <!-- Badges -->
+    <div class="card-badges">
+      @if (product.isNew) {
+        <span class="badge badge-oak">New</span>
+      }
+      @if (product.badge && product.badge !== 'New') {
+        <span class="badge badge-dark">{{ product.badge }}</span>
+      }
+    </div>
+  </a>
+
+  <!-- Info -->
+  <div class="card-info">
+    <div class="card-meta">
+      @if (category) {
+        <span class="card-category type-label">{{ category }}</span>
+      }
+      @if (timber) {
+        <span class="card-timber type-label">· {{ timber }}</span>
+      }
+    </div>
+
+    <h3 class="card-name">
+      <a [routerLink]="['/products', product.id]">{{ product.name }}</a>
+    </h3>
+
+    <div class="card-footer">
+      <div class="card-pricing">
+        <span class="card-price">
+          {{ formatPrice(displayPrice) }}
+          @if (hasVariants) { <span class="card-from">+</span> }
+        </span>
+        @if (hasVariants) {
+          <span class="card-from-label type-label">from</span>
+        }
+      </div>
+
+      <button class="card-add-btn"
+              [class.added]="added()"
+              id="add-to-cart-{{ product.id }}"
+              (click)="addToCart($event)"
+              [attr.aria-label]="added() ? 'Added to cart' : 'Add ' + product.name + ' to cart'">
+        @if (added()) {
+          <!-- Checkmark -->
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <polyline points="20 6 9 17 4 12"/>
+          </svg>
+        } @else {
+          <!-- Plus -->
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <line x1="12" y1="5" x2="12" y2="19"/>
+            <line x1="5" y1="12" x2="19" y2="12"/>
+          </svg>
+        }
+      </button>
+    </div>
+  </div>
+</article>

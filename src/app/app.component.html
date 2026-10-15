@@ -1,0 +1,13 @@
+<!-- Primary Top Navigation -->
+<app-navbar *ngIf="!isAdminRoute"></app-navbar>
+
+<!-- Main Page Outlet -->
+<main id="main-content" tabindex="-1">
+  <router-outlet></router-outlet>
+</main>
+
+<!-- Global Footer -->
+<app-footer *ngIf="!isAdminRoute"></app-footer>
+
+<!-- Global Slide-out Shopping Cart Drawer -->
+<app-cart-drawer *ngIf="!isAdminRoute"></app-cart-drawer>
