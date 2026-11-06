@@ -5,6 +5,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "postbuild": "node -e \"const fs = require('fs'); fs.copyFileSync('dist/sk-wood-turnery/browser/index.html', 'dist/sk-wood-turnery/browser/404.html'); console.log('Successfully generated 404.html for Vercel SPA routing');\"",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
