@@ -297,9 +297,9 @@
                 <td>
                   <div class="product-thumb">
                     <img
-                      [src]="(p.images && p.images.length > 0 ? p.images[0] : 'http://localhost:8000/api/images/bowl-oak.png')"
+                      [src]="(p.images && p.images.length > 0 ? p.images[0] : 'https://wooden-backend-production.up.railway.app/api/images/bowl-oak.png')"
                       [alt]="p.name"
-                      (error)="$any($event.target).src = 'http://localhost:8000/api/images/bowl-oak.png'"
+                      (error)="$any($event.target).src = 'https://wooden-backend-production.up.railway.app/api/images/bowl-oak.png'"
                     />
                   </div>
                 </td>
@@ -470,7 +470,7 @@
               <!-- Items Breakdown -->
               <div class="order-items-list">
                 <div class="order-item-row" *ngFor="let item of order.items">
-                  <img [src]="item.image" [alt]="item.productName" (error)="$any($event.target).src = 'http://localhost:8000/api/images/bowl-oak.png'" class="item-img" />
+                  <img [src]="item.image" [alt]="item.productName" (error)="$any($event.target).src = 'https://wooden-backend-production.up.railway.app/api/images/bowl-oak.png'" class="item-img" />
                   <div class="item-details">
                     <div class="item-title">{{ item.productName }}</div>
                     <div class="item-variant">{{ item.variantLabel }} (Qty: {{ item.quantity }})</div>
@@ -556,7 +556,7 @@
               </div>
               <div class="spec-item">
                 <span class="spec-label">Local Asset Fallback Cache</span>
-                <span class="spec-val">Enabled (src/http://localhost:8000/api/images/)</span>
+                <span class="spec-val">Enabled (src/https://wooden-backend-production.up.railway.app/api/images/)</span>
               </div>
             </div>
           </div>
@@ -792,7 +792,7 @@
               <!-- Image Thumbnails List -->
               <div class="modal-images-grid" *ngIf="editingProduct.images?.length">
                 <div class="modal-image-thumb" *ngFor="let img of editingProduct.images; let i = index">
-                  <img [src]="img" alt="Product image {{ i + 1 }}" (error)="$any($event.target).src = 'http://localhost:8000/api/images/bowl-oak.png'" />
+                  <img [src]="img" alt="Product image {{ i + 1 }}" (error)="$any($event.target).src = 'https://wooden-backend-production.up.railway.app/api/images/bowl-oak.png'" />
                   <span class="primary-badge" *ngIf="i === 0">Primary</span>
                   <button type="button" class="btn-remove-img" (click)="removeProductImage(i)" title="Remove image">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">

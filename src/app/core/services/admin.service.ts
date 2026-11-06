@@ -2,7 +2,7 @@ import { Injectable, signal, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
 
-const API_BASE = 'http://localhost:8000';
+const API_BASE = 'https://wooden-backend-production.up.railway.app';
 
 export interface AdminProduct {
   id?: string;
