@@ -46,7 +46,7 @@
       <div class="gallery">
         <div class="gallery-main">
           <img [src]="product()!.images[selectedImageIndex()]"
-               (error)="$any($event.target).src = 'assets/products/golden-ember-bowl.jpg'"
+               (error)="$any($event.target).src = 'http://localhost:8000/api/images/golden-ember-bowl.jpg'"
                [alt]="product()!.name"
                class="gallery-main-img"
                loading="eager">
@@ -68,7 +68,7 @@
                       role="listitem"
                       [attr.aria-label]="'Image ' + (i + 1)"
                       [attr.aria-pressed]="selectedImageIndex() === i">
-                <img [src]="img" (error)="$any($event.target).src = 'assets/products/golden-ember-bowl.jpg'" [alt]="product()!.name + ' image ' + (i + 1)" loading="lazy">
+                <img [src]="img" (error)="$any($event.target).src = 'http://localhost:8000/api/images/golden-ember-bowl.jpg'" [alt]="product()!.name + ' image ' + (i + 1)" loading="lazy">
               </button>
             }
           </div>

@@ -7,14 +7,14 @@
     <div class="card-image-wrap">
       <img [src]="product.images[0]"
            [alt]="product.name"
-           (error)="$any($event.target).src = 'assets/products/golden-ember-bowl.jpg'"
+           (error)="$any($event.target).src = 'http://localhost:8000/api/images/golden-ember-bowl.jpg'"
            class="card-img"
            loading="lazy">
       <!-- Hover secondary image -->
       @if (product.images.length > 1) {
         <img [src]="product.images[1]"
              [alt]="product.name + ' — alternate view'"
-             (error)="$any($event.target).src = 'assets/products/golden-ember-bowl.jpg'"
+             (error)="$any($event.target).src = 'http://localhost:8000/api/images/golden-ember-bowl.jpg'"
              class="card-img card-img-hover"
              loading="lazy">
       }

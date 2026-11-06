@@ -7,7 +7,7 @@
 <section class="hero" id="home" aria-label="Welcome to SK Wood Turnery">
   <!-- Cinematic workshop background -->
   <div class="hero-bg-wrapper">
-    <img src="assets/images/hero-artisan.jpg"
+    <img src="http://localhost:8000/api/images/hero-artisan.jpg"
          alt="Handcrafted live-edge turned wooden bowl on rustic craftsman workbench"
          class="hero-bg-image"
          loading="eager"
@@ -93,7 +93,7 @@
     <!-- Column 2: Tree Ring Macro Photo -->
     <div class="craft-col craft-macro-col">
       <div class="craft-image-frame tree-ring-frame">
-        <img src="assets/images/tree-rings.jpg"
+        <img src="http://localhost:8000/api/images/tree-rings.jpg"
              alt="Hardwood growth rings and natural bark texture cross section"
              class="craft-photo"
              loading="lazy">
@@ -103,13 +103,13 @@
     <!-- Column 3: Workshop Action B&W Photos -->
     <div class="craft-col craft-action-col">
       <div class="craft-image-frame action-frame-top">
-        <img src="assets/images/lathe-action.jpg"
+        <img src="http://localhost:8000/api/images/lathe-action.jpg"
              alt="Master woodturner carving spinning wood bowl on heavy cast-iron lathe with flying shavings"
              class="craft-photo"
              loading="lazy">
       </div>
       <div class="craft-image-frame action-frame-bottom">
-        <img src="assets/images/hands-crafting.jpg"
+        <img src="http://localhost:8000/api/images/hands-crafting.jpg"
              alt="Artisan hands gently holding and inspecting grain of handcrafted turned wooden piece"
              class="craft-photo"
              loading="lazy">
@@ -204,7 +204,7 @@
           <a [routerLink]="['/products', item.slug]" class="card-image-box" [attr.aria-label]="item.name">
             <img [src]="item.image"
                  [alt]="item.name"
-                 (error)="$any($event.target).src = 'assets/products/golden-ember-bowl.jpg'"
+                 (error)="$any($event.target).src = 'http://localhost:8000/api/images/golden-ember-bowl.jpg'"
                  class="card-product-img"
                  loading="lazy">
           </a>
@@ -245,7 +245,7 @@
     <!-- Left Half: Dark Workshop Materials Banner -->
     <div class="split-half-materials">
       <div class="materials-bg-image-wrapper" aria-hidden="true">
-        <img src="assets/images/workshop.png"
+        <img src="http://localhost:8000/api/images/workshop.png"
              alt="Artisan wood shavings and workshop table"
              class="materials-bg-img">
         <div class="materials-overlay"></div>

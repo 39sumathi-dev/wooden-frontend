@@ -40,7 +40,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
       id: 'golden-ember-magnolia-bowl',
       name: 'Golden Ember Bowl',
       price: 95,
-      image: 'assets/products/golden-ember-bowl.jpg',
+      image: 'http://localhost:8000/api/images/golden-ember-bowl.jpg',
       category: 'Magnolia Wood',
       slug: 'golden-ember-magnolia-bowl'
     },
@@ -48,7 +48,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
       id: 'emerald-glow-cherry-bowl',
       name: 'Emerald Glow Bowl',
       price: 125,
-      image: 'assets/products/emerald-glow-bowl.jpg',
+      image: 'http://localhost:8000/api/images/emerald-glow-bowl.jpg',
       category: 'Cherry & Iridescent Inlay',
       slug: 'emerald-glow-cherry-bowl'
     },
@@ -56,7 +56,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
       id: 'natures-edge-rustic-bowl',
       name: 'Nature’s Edge Live Edge',
       price: 95,
-      image: 'assets/products/natures-edge-bowl.jpg',
+      image: 'http://localhost:8000/api/images/natures-edge-bowl.jpg',
       category: 'Rustic Natural Bark',
       slug: 'natures-edge-rustic-bowl'
     },
@@ -64,7 +64,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
       id: 'woodland-trio-segmented-goblet',
       name: 'Woodland Trio Goblet',
       price: 85,
-      image: 'assets/products/woodland-trio-goblet.jpg',
+      image: 'http://localhost:8000/api/images/woodland-trio-goblet.jpg',
       category: 'Cherry, Pine & Ash',
       slug: 'woodland-trio-segmented-goblet'
     }
@@ -75,25 +75,25 @@ export class HomeComponent implements OnInit, AfterViewInit {
     {
       name: 'Bowls',
       count: 12,
-      image: 'assets/products/bowl-oak.png',
+      image: 'http://localhost:8000/api/images/woven-brick-bowl.jpg',
       slug: 'bowls-trays'
     },
     {
       name: 'Vases',
       count: 9,
-      image: 'assets/products/vase-walnut.png',
+      image: 'http://localhost:8000/api/images/vase-walnut.png',
       slug: 'finials-hollow-forms'
     },
     {
       name: 'Containers',
       count: 14,
-      image: 'assets/products/pen-box-walnut.jpg',
+      image: 'http://localhost:8000/api/images/pen-box-walnut.jpg',
       slug: 'pen-boxes-cases'
     },
     {
-      name: 'Lighting',
-      count: 6,
-      image: 'assets/products/candleholder-teak.png',
+      name: 'Artisan Barware',
+      count: 8,
+      image: 'http://localhost:8000/api/images/bottle-stoppers.jpg',
       slug: 'kitchen-accessories'
     }
   ];
